@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "qondor-cli"
+dynamic = ["version"]
+description = "CLI for calling the Qondor API"
+requires-python = ">=3.12"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Qondor AS", email = "support@qondor.com" }]
+keywords = ["qondor", "cli", "api"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development",
+]
+dependencies = [
+    "qondor-api-sdk>=0.1.0,<0.2",
+    "typer>=0.12,<1",
+    "rich>=13,<14",
+]
+
+[project.urls]
+Homepage = "https://qondor.com"
+Repository = "https://github.com/Qondor-AS/qondor-cli"
+Issues = "https://github.com/Qondor-AS/qondor-cli/issues"
+Changelog = "https://github.com/Qondor-AS/qondor-cli/blob/main/CHANGELOG.md"
+
+[project.scripts]
+qondor = "qondor_cli.main:app"
+
+[dependency-groups]
+dev = ["pytest>=8,<9", "pytest-asyncio>=0.24,<1", "pytest-httpx>=0.34,<1", "ruff>=0.4,<1"]
+
+[tool.hatch.version]
+path = "src/qondor_cli/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/qondor_cli"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
